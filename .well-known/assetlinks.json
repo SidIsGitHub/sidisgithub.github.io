@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "io.github.sidisgithub.twa",
+    "sha256_cert_fingerprints": ["B6:C4:D1:2F:99:2F:6C:29:D6:78:16:04:58:47:69:2D:8C:C8:BF:FB:4B:8A:5A:37:BE:6B:43:F6:B9:61:D5:6B"]
+  }
+}]
