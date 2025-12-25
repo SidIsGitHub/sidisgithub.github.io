@@ -13,6 +13,25 @@
     <title>V-SYNC</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        html, body {
+    /* Disables the pull-to-refresh gesture and browser bounce */
+    overscroll-behavior-y: none; 
+    
+    /* Ensure the body doesn't accidentally scroll past its limits */
+    overflow: hidden; 
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+#communityScrollWrapper, 
+#messagesContainer, 
+#activeChatsList {
+    height: 100%;
+    overflow-y: auto;
+    /* Allows this specific area to bounce without triggering the browser refresh */
+    overscroll-behavior-y: contain; 
+    -webkit-overflow-scrolling: touch;
+}
         /* --- DYNAMIC POLL INPUTS --- */
         .poll-input-row {
             display: flex;
@@ -5190,17 +5209,6 @@
         let currentPollData = null;
 
         let pollUnsub; // Global variable to stop duplicate listeners
-      function checkSession() {
-    const savedUid = localStorage.getItem('vsync_uid');
-    const savedAnon = localStorage.getItem('vsync_is_anon') === 'true';
-    if (savedUid) {
-        simulateLogin(savedUid, savedAnon);
-    } else {
-        document.getElementById('authScreen').classList.remove('hidden');
-        loadDevUsers();
-    }
-}
-checkSession();
 
         function openDailyPoll() {
             lockScroll();
@@ -10322,8 +10330,13 @@ function formatBytes(bytes, decimals = 1) {
     </script>
 <script>
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
-}
+    window.addEventListener('load', () => {
+      // Use "./sw.js" to look in the CURRENT folder
+      navigator.serviceWorker.register('./sw.js', { scope: './' })
+        .then(reg => console.log('✅ SW Registered in scope:', reg.scope))
+        .catch(err => console.error('❌ SW Failed:', err));
+    });
+  }
 </script>
 </body>
 
