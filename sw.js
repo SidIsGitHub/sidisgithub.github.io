@@ -1,4 +1,4 @@
-const CACHE_NAME = "vsync-v3"; // <--- CHANGE THIS NUMBER TO v3, v4, etc. on every update
+const CACHE_NAME = "vsync-v5"; // <--- CHANGE THIS NUMBER TO v3, v4, etc. on every update
 const assets = ["./", "./index.html", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 
 // 1. Install: Cache files
@@ -22,7 +22,7 @@ self.addEventListener("activate", (e) => {
                     }
                 })
             );
-        }).then(() => self.clients.claim()) // 🚀 Take control of all pages immediately
+        }).then(() => self.clients.claim()) //Take control of all pages immediately
     );
 });
 
