@@ -1940,6 +1940,7 @@
             --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
             --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         body {
             /* The "Apple Stack" - Prioritizes SF Pro, then falls back gracefully */
             font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "Segoe UI", sans-serif;
@@ -1950,66 +1951,79 @@
             /* Subtle spacing adjustments typical of Apple's UI */
             letter-spacing: -0.011em;
             height: 100%;
-    
-}
+
+        }
 
         /* --- FILE ATTACHMENT CARD --- */
-.file-attachment-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 10px 12px;
-    margin-top: 5px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-    max-width: 100%;
-    text-decoration: none; /* For the <a> wrapper */
-}
+        .file-attachment-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-top: 5px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            max-width: 100%;
+            text-decoration: none;
+            /* For the <a> wrapper */
+        }
 
-.file-attachment-card:hover {
-    background: rgba(255, 255, 255, 0.12);
-    transform: translateY(-2px);
-}
+        .file-attachment-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
 
-.file-icon-box {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    background: rgba(10, 132, 255, 0.2); /* Blue tint */
-    color: #0A84FF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
+        .file-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(10, 132, 255, 0.2);
+            /* Blue tint */
+            color: #0A84FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
 
-.file-icon-box.pdf { background: rgba(255, 69, 58, 0.2); color: #FF453A; } /* Red for PDF */
-.file-icon-box.doc { background: rgba(48, 209, 88, 0.2); color: #30D158; } /* Green for Doc */
+        .file-icon-box.pdf {
+            background: rgba(255, 69, 58, 0.2);
+            color: #FF453A;
+        }
 
-.file-info {
-    flex: 1;
-    overflow: hidden;
-    color: var(--text-main);
-}
+        /* Red for PDF */
+        .file-icon-box.doc {
+            background: rgba(48, 209, 88, 0.2);
+            color: #30D158;
+        }
 
-.file-name {
-    font-size: 14px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    line-height: 1.2;
-}
+        /* Green for Doc */
 
-.file-meta {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-}
+        .file-info {
+            flex: 1;
+            overflow: hidden;
+            color: var(--text-main);
+        }
+
+        .file-name {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .file-meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
         /* --- POLL ICON SPECIFIC --- */
         .daily-poll-style svg {
             width: 20px;
@@ -2205,6 +2219,34 @@
             }
         }
 
+        .modal-content,
+        .daily-poll-style,
+        .card {
+            /* Triggers hardware acceleration */
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+
+        a,
+        button,
+        input,
+        select,
+        textarea,
+        .card,
+        .tab-button {
+            touch-action: manipulation;
+            /* Tells browser: "I won't double tap, click immediately" */
+        }
+
+        .card,
+        .chat-item {
+            content-visibility: auto;
+            /* Huge performance boost for lists */
+            contain-intrinsic-size: 100px;
+            /* Approximate height of a card to prevent scrollbar jumping */
+        }
+
         /* Adjust the wrapper to push items apart */
         .center-icon-wrapper {
             justify-content: space-between !important;
@@ -2245,12 +2287,15 @@
             --bg-body: #000000;
             /* Ensure this stays black */
         }
+
         html {
-    height: 100%;
-    width: 100%;
-    overflow: hidden; /* Stops the browser window from scrolling */
-    overscroll-behavior: none; /* Kills the Chrome refresh icon */
-}
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            /* Stops the browser window from scrolling */
+            overscroll-behavior: none;
+            /* Kills the Chrome refresh icon */
+        }
 
         * {
             margin: 0;
@@ -2263,7 +2308,7 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        
+
 
         /* Ensure form elements inherit the clean font */
         input,
@@ -2562,7 +2607,7 @@
                 background-color: #4da6ff;
             }
 
-           
+
         }
 
         /* --- TABS --- */
@@ -4460,10 +4505,8 @@
                     </div>
 
                     <div id="messageView">
-                        <input type="file" id="chatFileInput" 
-       accept="image/*,video/*,.pdf,.doc,.docx,.ppt,.pptx,.txt" 
-       style="display: none;" 
-       onchange="handleChatFileSelect(this)">
+                        <input type="file" id="chatFileInput" accept="image/*,video/*,.pdf,.doc,.docx,.ppt,.pptx,.txt"
+                            style="display: none;" onchange="handleChatFileSelect(this)">
 
                         <div id="chatHeader"
                             style="padding: 15px 20px; font-weight: 800; font-size: 18px; border-bottom: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); display: flex; align-items: center;">
@@ -4953,10 +4996,8 @@
     </div>
 
     <div id="createPostModal" class="modal">
-       <input type="file" id="postFileInput" 
-       accept="image/*,video/*,.pdf,.doc,.docx,.ppt,.pptx,.txt" 
-       style="display: none;" 
-       onchange="handlePostFileSelect()">
+        <input type="file" id="postFileInput" accept="image/*,video/*,.pdf,.doc,.docx,.ppt,.pptx,.txt"
+            style="display: none;" onchange="handlePostFileSelect()">
 
         <div class="modal-content" style="max-width: 500px; width: 90%; overflow: visible;">
             <div class="modal-header">Create Discussion Post</div>
@@ -5445,35 +5486,35 @@
 
         // --- STARTUP ---
         // --- STARTUP LOGIC (AUTO-LOGIN) ---
-function checkSession() {
-    const savedUid = localStorage.getItem('vsync_uid');
-    const savedAnon = localStorage.getItem('vsync_is_anon') === 'true';
+        function checkSession() {
+            const savedUid = localStorage.getItem('vsync_uid');
+            const savedAnon = localStorage.getItem('vsync_is_anon') === 'true';
 
-    if (savedUid) {
-        console.log("Found saved session:", savedUid);
-        // Show App immediately (hidden by default in HTML, so we just init logic)
-        simulateLogin(savedUid, savedAnon);
-    } else {
-        // No session, show Login
-        console.log("No session found. Showing Login.");
-        document.getElementById('authScreen').classList.remove('hidden');
-        document.getElementById('appScreen').classList.add('hidden');
-        loadDevUsers();
-    }
-}
+            if (savedUid) {
+                console.log("Found saved session:", savedUid);
+                // Show App immediately (hidden by default in HTML, so we just init logic)
+                simulateLogin(savedUid, savedAnon);
+            } else {
+                // No session, show Login
+                console.log("No session found. Showing Login.");
+                document.getElementById('authScreen').classList.remove('hidden');
+                document.getElementById('appScreen').classList.add('hidden');
+                loadDevUsers();
+            }
+        }
 
-// Run immediately
-checkSession();
-window.performLogout = function() {
-    if(confirm("Are you sure you want to log out?")) {
-        // Clear saved data
-        localStorage.removeItem('vsync_uid');
-        localStorage.removeItem('vsync_is_anon');
-        
-        // Reload page to return to fresh login screen
-        window.location.reload();
-    }
-};
+        // Run immediately
+        checkSession();
+        window.performLogout = function () {
+            if (confirm("Are you sure you want to log out?")) {
+                // Clear saved data
+                localStorage.removeItem('vsync_uid');
+                localStorage.removeItem('vsync_is_anon');
+
+                // Reload page to return to fresh login screen
+                window.location.reload();
+            }
+        };
         document.getElementById('authScreen').classList.remove('hidden');
         document.getElementById('appScreen').classList.add('hidden');
 
@@ -5495,54 +5536,66 @@ window.performLogout = function() {
             const modal = document.getElementById('imageLightbox');
             const img = document.getElementById('lightboxImg');
 
-            // Reset state
+            if (!modal || !img) return;
+
+            // Reset state using GPU transform
             currentScale = 1;
             translateX = 0;
             translateY = 0;
-            img.style.transform = `translate(0px, 0px) scale(1)`;
+            img.style.transform = `translate3d(0px, 0px, 0px) scale(1)`;
 
             img.src = src;
             modal.style.display = "flex";
 
-            // Add Scroll Listener
+            // Lock background scroll
+            document.body.classList.add('no-scroll');
+
+            // Add Listeners
+            // { passive: false } allows us to preventDefault() which stops the whole page from scrolling while zooming
             img.addEventListener('wheel', handleZoom, { passive: false });
-            // Add Drag Listeners
-            img.addEventListener('mousedown', startDrag);
-            window.addEventListener('mousemove', drag);
-            window.addEventListener('mouseup', endDrag);
+
+            // Mouse Events (Desktop)
+            img.addEventListener('mousedown', startDrag, { passive: false });
+            window.addEventListener('mousemove', drag, { passive: false });
+            window.addEventListener('mouseup', endDrag, { passive: false });
+
+            // Touch Events (Mobile) - CRITICAL for smooth phone experience
+            img.addEventListener('touchstart', startDrag, { passive: false });
+            window.addEventListener('touchmove', drag, { passive: false });
+            window.addEventListener('touchend', endDrag, { passive: false });
         }
         // --- UPLOAD HELPER ---
         function uploadFileToStorage(file) {
-    return new Promise((resolve, reject) => {
-        // Create a unique file name
-        const fileName = Date.now() + "_" + file.name;
-        const storageRef = storage.ref().child('uploads/' + fileName);
+            return new Promise((resolve, reject) => {
+                // Create a unique file name
+                const fileName = Date.now() + "_" + file.name;
+                const storageRef = storage.ref().child('uploads/' + fileName);
 
-        // --- NEW: FORCE DOWNLOAD METADATA ---
-        const metadata = {
-            contentType: file.type,
-            contentDisposition: `attachment; filename="${file.name}"` 
-        };
+                // --- NEW: FORCE DOWNLOAD METADATA ---
+                const metadata = {
+                    contentType: file.type,
+                    contentDisposition: `attachment; filename="${file.name}"`
+                };
 
-        const uploadTask = storageRef.put(file, metadata); // <--- Pass metadata here
+                const uploadTask = storageRef.put(file, metadata); // <--- Pass metadata here
 
-        uploadTask.on('state_changed',
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
-            },
-            (error) => {
-                console.error("Upload failed:", error);
-                reject(error);
-            },
-            () => {
-                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    resolve(downloadURL);
-                });
-            }
-        );
-    });
-}
+                uploadTask.on('state_changed',
+                    (snapshot) => {
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log('Upload is ' + progress + '% done');
+                    },
+                    (error) => {
+                        console.error("Upload failed:", error);
+                        reject(error);
+                    },
+                    () => {
+                        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                            resolve(downloadURL);
+                        });
+                    }
+                );
+            });
+        }
         // --- YEAR BADGE HELPER ---
         function getYearBadgeHtml(year) {
             if (!year || year === 'undefined') return '';
@@ -5570,13 +5623,22 @@ window.performLogout = function() {
         function closeLightbox() {
             const modal = document.getElementById('imageLightbox');
             const img = document.getElementById('lightboxImg');
-            modal.style.display = "none";
 
-            // Clean up listeners
-            img.removeEventListener('wheel', handleZoom);
-            img.removeEventListener('mousedown', startDrag);
+            if (modal) modal.style.display = "none";
+
+            // Unlock background scroll
+            document.body.classList.remove('no-scroll');
+
+            // Clean up listeners to prevent memory leaks
+            if (img) {
+                img.removeEventListener('wheel', handleZoom);
+                img.removeEventListener('mousedown', startDrag);
+                img.removeEventListener('touchstart', startDrag);
+            }
             window.removeEventListener('mousemove', drag);
             window.removeEventListener('mouseup', endDrag);
+            window.removeEventListener('touchmove', drag);
+            window.removeEventListener('touchend', endDrag);
         }
         // --- CUSTOM CONFIRMATION LOGIC ---
         function showConfirm(title, message, onConfirmCallback) {
@@ -5604,13 +5666,12 @@ window.performLogout = function() {
             document.getElementById('confirmModal').classList.remove('active');
         }
 
-        function handleZoom(event) {
-            event.preventDefault(); // Stop page scrolling
-            const img = document.getElementById('lightboxImg');
+        function handleZoom(e) {
+            e.preventDefault();
 
             // Determine zoom direction
-            const delta = event.deltaY * -0.005; // -0.005 sensitivity
-            const newScale = Math.min(Math.max(0.5, currentScale + delta), 5); // Min 0.5x, Max 5x
+            const delta = e.deltaY ? e.deltaY * -0.005 : 0;
+            const newScale = Math.min(Math.max(1, currentScale + delta), 5); // Min 1x, Max 5x
 
             currentScale = newScale;
             updateTransform();
@@ -5630,29 +5691,47 @@ window.performLogout = function() {
         }
         // --- DRAG / PAN LOGIC ---
         function startDrag(e) {
-            if (currentScale <= 1) return; // Only drag if zoomed in
+            // Only allow dragging if we are zoomed in
+            if (currentScale <= 1) return;
+
             isDragging = true;
-            startX = e.clientX - translateX;
-            startY = e.clientY - translateY;
-            document.getElementById('lightboxImg').style.cursor = 'grabbing';
+
+            // Handle both Touch and Mouse coordinates
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            startX = clientX - translateX;
+            startY = clientY - translateY;
+
+            const img = document.getElementById('lightboxImg');
+            if (img) img.style.cursor = 'grabbing';
         }
 
         function drag(e) {
             if (!isDragging) return;
-            e.preventDefault();
-            translateX = e.clientX - startX;
-            translateY = e.clientY - startY;
+            e.preventDefault(); // Stop browser from scrolling
+
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+            translateX = clientX - startX;
+            translateY = clientY - startY;
+
             updateTransform();
         }
 
         function endDrag() {
             isDragging = false;
-            document.getElementById('lightboxImg').style.cursor = 'grab';
+            const img = document.getElementById('lightboxImg');
+            if (img) img.style.cursor = 'grab';
         }
 
         function updateTransform() {
             const img = document.getElementById('lightboxImg');
-            img.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            if (img) {
+                // Use translate3d to force GPU rendering (Hardware Acceleration)
+                img.style.transform = `translate3d(${translateX}px, ${translateY}px, 0px) scale(${currentScale})`;
+            }
         }
         function handleLogin(e) {
             e.preventDefault();
@@ -5741,67 +5820,67 @@ window.performLogout = function() {
 
         // --- 2. UPDATE LOGIN TO START TRACKING ---
         function simulateLogin(uid, isAnonSession) {
-    // 1. SAVE SESSION TO LOCAL STORAGE (The Fix)
-    localStorage.setItem('vsync_uid', uid);
-    localStorage.setItem('vsync_is_anon', isAnonSession);
+            // 1. SAVE SESSION TO LOCAL STORAGE (The Fix)
+            localStorage.setItem('vsync_uid', uid);
+            localStorage.setItem('vsync_is_anon', isAnonSession);
 
-    db.collection('users').doc(uid).get().then(doc => {
-        const realData = doc.data();
+            db.collection('users').doc(uid).get().then(doc => {
+                const realData = doc.data();
 
-        // 2. Create Session Data
-        if (isAnonSession) {
-            window.currentUserData = {
-                ...realData,
-                displayNameOverride: "Anonymous",
-                roleOverride: "Guest",
-                profilePicOverride: "",
-                isAnonymousSession: true,
-                realYear: realData.year
-            };
-        } else {
-            window.currentUserData = { ...realData, isAnonymousSession: false };
-        }
-        window.currentUser = { uid: doc.id };
-        currentUser = window.currentUser;
-        currentUserData = window.currentUserData;
+                // 2. Create Session Data
+                if (isAnonSession) {
+                    window.currentUserData = {
+                        ...realData,
+                        displayNameOverride: "Anonymous",
+                        roleOverride: "Guest",
+                        profilePicOverride: "",
+                        isAnonymousSession: true,
+                        realYear: realData.year
+                    };
+                } else {
+                    window.currentUserData = { ...realData, isAnonymousSession: false };
+                }
+                window.currentUser = { uid: doc.id };
+                currentUser = window.currentUser;
+                currentUserData = window.currentUserData;
 
-        // 3. UI Switch
-        document.getElementById('authScreen').classList.add('hidden');
-        document.getElementById('appScreen').classList.remove('hidden');
+                // 3. UI Switch
+                document.getElementById('authScreen').classList.add('hidden');
+                document.getElementById('appScreen').classList.remove('hidden');
 
-        // 4. UI Restrictions for Anonymous
-        if (isAnonSession) {
-            const tabs = document.querySelectorAll('.tab-button');
-            tabs.forEach(t => {
-                if (t.innerText === "Messages" || t.innerText === "Explore") {
-                    t.style.display = 'none';
+                // 4. UI Restrictions for Anonymous
+                if (isAnonSession) {
+                    const tabs = document.querySelectorAll('.tab-button');
+                    tabs.forEach(t => {
+                        if (t.innerText === "Messages" || t.innerText === "Explore") {
+                            t.style.display = 'none';
+                        }
+                    });
+
+                    const navRight = document.querySelector('.navbar-right');
+                    navRight.children[0].children[0].classList.add('hidden');
+                    navRight.children[0].children[1].classList.add('hidden');
+
+                    updateUserInfo();
+                    loadCommunity();
+                    switchTab('community');
+                } else {
+                    // Restore UI
+                    document.querySelectorAll('.tab-button').forEach(t => t.style.display = 'block');
+                    const navRight = document.querySelector('.navbar-right');
+                    navRight.children[0].children[0].classList.remove('hidden');
+                    navRight.children[0].children[1].classList.remove('hidden');
+
+                    loadActivePoll();
+                    initMessageBadgeListener();
+                    updateUserInfo();
+                    loadDevUsers();
+                    initNotificationListener();
+                    startPresenceHeartbeat();
+                    switchTab('community');
                 }
             });
-
-            const navRight = document.querySelector('.navbar-right');
-            navRight.children[0].children[0].classList.add('hidden');
-            navRight.children[0].children[1].classList.add('hidden');
-
-            updateUserInfo();
-            loadCommunity(); 
-            switchTab('community');
-        } else {
-            // Restore UI
-            document.querySelectorAll('.tab-button').forEach(t => t.style.display = 'block');
-            const navRight = document.querySelector('.navbar-right');
-            navRight.children[0].children[0].classList.remove('hidden');
-            navRight.children[0].children[1].classList.remove('hidden');
-
-            loadActivePoll();
-            initMessageBadgeListener();
-            updateUserInfo();
-            loadDevUsers();
-            initNotificationListener();
-            startPresenceHeartbeat();
-            switchTab('community');
         }
-    });
-}
         // --- AUTH: TOGGLE UI ---
         function toggleAuthMode(mode) {
             if (mode === 'register') {
@@ -6451,146 +6530,171 @@ window.performLogout = function() {
         }
 
         function handleChatFileSelect(input) {
-    if (input.files && input.files[0]) {
-        const file = input.files[0];
-        const chatId = document.getElementById('selectedChatId').value;
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const chatId = document.getElementById('selectedChatId').value;
 
-        // 1. Detect Type
-        let type = 'image';
-        if (file.type.startsWith('video/')) type = 'video';
-        else if (file.type.includes('pdf') || file.type.includes('document') || file.name.match(/\.(doc|docx|ppt|pptx|txt)$/i)) type = 'document';
+                // 1. Detect Type
+                let type = 'image';
+                if (file.type.startsWith('video/')) type = 'video';
+                else if (file.type.includes('pdf') || file.type.includes('document') || file.name.match(/\.(doc|docx|ppt|pptx|txt)$/i)) type = 'document';
 
-        // 2. Limit Size (20MB)
-        if (file.size > 20 * 1024 * 1024) {
-            alert("File too large. Max 20MB allowed.");
-            input.value = "";
-            return;
+                // 2. Limit Size (20MB)
+                if (file.size > 20 * 1024 * 1024) {
+                    alert("File too large. Max 20MB allowed.");
+                    input.value = "";
+                    return;
+                }
+
+                if (typeof showToast === 'function') showToast("Uploading file...");
+
+                uploadFileToStorage(file).then(url => {
+                    // 3. Send Message with Metadata
+                    db.collection('chats').doc(chatId).collection('messages').add({
+                        imageUrl: url, // Reuse this field for file URL
+                        mediaType: type,
+                        fileName: file.name, // Save name
+                        fileSize: file.size, // Save size
+                        text: type === 'document' ? "Sent a file" : (type === 'video' ? "Sent a video" : "Sent an image"),
+                        senderId: currentUser.uid,
+                        timestamp: new Date()
+                    });
+
+                    // Update Metadata
+                    let lastMsgText = "📷 Image";
+                    if (type === 'video') lastMsgText = "🎥 Video";
+                    if (type === 'document') lastMsgText = "📄 File";
+
+                    db.collection('chats').doc(chatId).update({
+                        lastMessage: lastMsgText,
+                        updatedAt: new Date(),
+                        lastSenderId: currentUser.uid
+                    });
+
+                }).catch(err => alert("Upload failed: " + err.message));
+
+                input.value = "";
+            }
         }
+        // Setup Logic
+        // --- SETUP LOGIC ---
+        // Only target the specific wrapper inside the Community Tab
+        initPullToRefresh('communityScrollWrapper', async () => {
+            await loadCommunity();
+            loadActivePoll();
+        });
 
-        if (typeof showToast === 'function') showToast("Uploading file...");
-
-        uploadFileToStorage(file).then(url => {
-            // 3. Send Message with Metadata
-            db.collection('chats').doc(chatId).collection('messages').add({
-                imageUrl: url, // Reuse this field for file URL
-                mediaType: type,
-                fileName: file.name, // Save name
-                fileSize: file.size, // Save size
-                text: type === 'document' ? "Sent a file" : (type === 'video' ? "Sent a video" : "Sent an image"),
-                senderId: currentUser.uid,
-                timestamp: new Date()
-            });
-
-            // Update Metadata
-            let lastMsgText = "📷 Image";
-            if (type === 'video') lastMsgText = "🎥 Video";
-            if (type === 'document') lastMsgText = "📄 File";
-
-            db.collection('chats').doc(chatId).update({
-                lastMessage: lastMsgText,
-                updatedAt: new Date(),
-                lastSenderId: currentUser.uid
-            });
-
-        }).catch(err => alert("Upload failed: " + err.message));
-
-        input.value = "";
-    }
-}
-        /* --- PULL TO REFRESH LOGIC --- */
-        /* --- PULL TO REFRESH LOGIC (FIXED SENSITIVITY) --- */
-function initPullToRefresh(listId, refreshCallback) {
+        function initPullToRefresh(listId, refreshCallback) {
     const list = document.getElementById(listId);
     const ptrVisual = document.getElementById('ptr-visual');
-    const icon = ptrVisual.querySelector('.ptr-icon');
-    
+    const ptrIcon = ptrVisual ? ptrVisual.querySelector('.ptr-icon') : null;
+
     if (!list || !ptrVisual) return;
 
     let startY = 0;
     let isPulling = false;
     let isRefreshing = false;
-    
+
+    // 1. CAPTURE START POSITION
     list.addEventListener('touchstart', (e) => {
-        // STRICT CHECK: Only enable if we are EXACTLY at the top
+        // Only track if we are at the very top and not currently loading
         if (list.scrollTop === 0 && !isRefreshing) {
             startY = e.touches[0].pageY;
             isPulling = true;
-            ptrVisual.style.transition = 'none'; // Remove lag
+            ptrVisual.style.transition = 'none'; // Remove lag for instant follow
         } else {
             isPulling = false;
         }
     }, { passive: true });
 
+    // 2. AGGRESSIVE MOVE HANDLER
     list.addEventListener('touchmove', (e) => {
-    if (!isPulling) return;
+        // If we scrolled down even 1px, abandon ship. Let browser handle normal scroll.
+        if (list.scrollTop > 0) {
+            isPulling = false;
+            return;
+        }
 
-    // 1. SAFETY: If the user is NOT at the absolute top, cancel immediately.
-    // This prevents accidental refreshes while scrolling up fast.
-    if (list.scrollTop > 0) {
-        isPulling = false;
-        resetPullState(); 
-        return;
-    }
+        if (!isPulling) return;
 
-    const currentY = e.touches[0].pageY;
-    const diff = currentY - startY;
+        const currentY = e.touches[0].pageY;
+        const diff = currentY - startY;
 
-    // 2. DEAD ZONE: Ignore movements smaller than 40px. 
-    // This makes sure fast upward scrolls don't trigger the downward pull logic.
-    if (diff < 40) return; 
+        // If pulling DOWN (diff > 0) while at the TOP
+        if (diff > 0) {
+            // --- THE FIX ---
+            // This line tells Chrome/Safari: "STOP! Don't do your native refresh."
+            if (e.cancelable) e.preventDefault(); 
 
-    if (diff > 0) {
-        if (e.cancelable) e.preventDefault();
-        const moveY = Math.min((diff - 40) * 0.4, 100); 
-        
-        list.style.transform = `translateY(${moveY}px)`;
-        ptrVisual.style.opacity = Math.min(moveY / 50, 1);
-        ptrVisual.style.transform = `translateY(${moveY - 20}px) scale(1)`; 
-    }
-}, { passive: false });
+            // Apply resistance (friction) so it feels real
+            const moveY = Math.pow(diff, 0.85); 
+            const cappedY = Math.min(moveY, 150); // Cap distance
 
+            // Move the list manually
+            list.style.transform = `translate3d(0, ${cappedY}px, 0)`;
+
+            // Animate the custom spinner
+            if (cappedY > 20) {
+                const opacity = Math.min((cappedY - 20) / 40, 1);
+                const rotation = Math.min(cappedY * 2, 360);
+                
+                ptrVisual.style.opacity = opacity;
+                ptrVisual.style.transform = `translate3d(0, ${cappedY - 40}px, 0) scale(${Math.min(1, cappedY/80)})`;
+                
+                if (ptrIcon) {
+                    ptrIcon.style.transform = `rotate(${rotation}deg)`;
+                }
+            }
+        }
+    }, { passive: false }); // <--- REQUIRED: 'false' allows preventDefault() to work
+
+    // 3. RELEASE HANDLER
     list.addEventListener('touchend', () => {
         if (!isPulling) return;
         isPulling = false;
 
-        ptrVisual.style.transition = 'transform 0.3s, opacity 0.3s';
-        list.style.transition = 'transform 0.3s cubic-bezier(0.2, 1, 0.3, 1)';
+        // Get final visual position
+        const currentY = new WebKitCSSMatrix(window.getComputedStyle(list).transform).m42;
 
-        // Check if pulled enough (Threshold: 60px)
-        const currentTransform = new WebKitCSSMatrix(window.getComputedStyle(list).transform).m42;
-
-        if (currentTransform > 60) {
+        // Threshold to trigger refresh (80px)
+        if (currentY > 80) {
             isRefreshing = true;
             
-            // Snap to "Loading" position
-            list.style.transform = `translateY(50px)`; 
+            // Snap UI to "Loading" state
+            list.style.transition = 'transform 0.3s cubic-bezier(0.2, 1, 0.3, 1)';
+            list.style.transform = `translate3d(0, 60px, 0)`;
+
+            ptrVisual.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
             ptrVisual.style.opacity = '1';
-            ptrVisual.style.transform = `translateY(30px) scale(1)`;
+            ptrVisual.style.transform = `translate3d(0, 15px, 0) scale(1)`;
             ptrVisual.classList.add('ptr-loading');
 
-            if(navigator.vibrate) navigator.vibrate(10);
+            if(navigator.vibrate) navigator.vibrate(15);
 
+            // Execute actual refresh logic
             refreshCallback().then(() => {
-                setTimeout(() => {
-                    resetPullState();
-                }, 500);
+                setTimeout(resetPullState, 500);
             });
         } else {
+            // Cancel and snap back
             resetPullState();
         }
     });
 
     function resetPullState() {
         isRefreshing = false;
-        list.style.transform = `translateY(0px)`;
+        isPulling = false;
+
+        // Smoothly return to zero
+        list.style.transition = 'transform 0.3s cubic-bezier(0.2, 1, 0.3, 1)';
+        list.style.transform = `translate3d(0, 0, 0)`;
+
+        ptrVisual.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
         ptrVisual.style.opacity = '0';
-        ptrVisual.style.transform = `translateY(0px) scale(0.8)`;
+        ptrVisual.style.transform = `translate3d(0, 0, 0) scale(0.8)`;
         ptrVisual.classList.remove('ptr-loading');
         
-        setTimeout(() => {
-            list.style.transition = '';
-            ptrVisual.style.transition = '';
-        }, 300);
+        if (ptrIcon) ptrIcon.style.transform = 'rotate(0deg)';
     }
 }
 
@@ -7752,22 +7856,22 @@ function initPullToRefresh(listId, refreshCallback) {
             });
         }
         /* --- FILE HELPERS --- */
-function getFileIcon(fileName) {
-    const ext = fileName.split('.').pop().toLowerCase();
-    if (ext === 'pdf') {
-        return `<div class="file-icon-box pdf"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>`;
-    }
-    // Default Doc Icon
-    return `<div class="file-icon-box doc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>`;
-}
+        function getFileIcon(fileName) {
+            const ext = fileName.split('.').pop().toLowerCase();
+            if (ext === 'pdf') {
+                return `<div class="file-icon-box pdf"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>`;
+            }
+            // Default Doc Icon
+            return `<div class="file-icon-box doc"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>`;
+        }
 
-function formatBytes(bytes, decimals = 1) {
-    if (!bytes) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals)) + ' ' + sizes[i];
-}
+        function formatBytes(bytes, decimals = 1) {
+            if (!bytes) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(decimals)) + ' ' + sizes[i];
+        }
         // Helper: Extract dominant color from an image file object
         function getDominantColor(file) {
             return new Promise((resolve) => {
@@ -7900,13 +8004,13 @@ function formatBytes(bytes, decimals = 1) {
         // --- 1. LOAD COMMUNITY (Now respects filters) ---
         /* --- LOAD COMMUNITY (With Report Wall Logic) --- */
         async function loadCommunity() {
-    const listEl = document.getElementById('communityPostsList');
-    if (!listEl) return;
-    if (!currentUser) return;
+            const listEl = document.getElementById('communityPostsList');
+            if (!listEl) return;
+            if (!currentUser) return;
 
-    // --- SKELETON LOADING STATE ---
-    if (listEl.innerHTML.trim() === '' || listEl.textContent.includes('No posts')) {
-        listEl.innerHTML = `
+            // --- SKELETON LOADING STATE ---
+            if (listEl.innerHTML.trim() === '' || listEl.textContent.includes('No posts')) {
+                listEl.innerHTML = `
             <div class="card" style="padding: 20px; margin-bottom: 20px;">
                 <div style="display:flex; gap:10px; margin-bottom:15px;">
                     <div class="skeleton skeleton-avatar"></div>
@@ -7919,95 +8023,95 @@ function formatBytes(bytes, decimals = 1) {
                 <div class="skeleton skeleton-text"></div>
                 <div class="skeleton skeleton-img" style="margin-top:10px;"></div>
             </div>`;
-    }
+            }
 
-    try {
-        const snap = await db.collection('posts').orderBy('createdAt', 'desc').limit(50).get();
-        let posts = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+            try {
+                const snap = await db.collection('posts').orderBy('createdAt', 'desc').limit(50).get();
+                let posts = snap.docs.map(doc => ({ ...doc.data(), id: doc.id }));
 
-        // --- FILTERS ---
-        if (window.activeFilters.years.length > 0) {
-            posts = posts.filter(p => window.activeFilters.years.includes(p.authorYear));
-        }
-        if (window.activeFilters.tags.length > 0) {
-            posts = posts.filter(p => {
-                if (!p.tags) return false;
-                return p.tags.some(t => window.activeFilters.tags.includes(t.name));
-            });
-        }
-        if (window.activeFilters.sortBy === 'upvotes') {
-            posts.sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0));
-        } else {
-            posts.sort((a, b) => b.createdAt - a.createdAt);
-        }
-
-        if (posts.length === 0) {
-            listEl.innerHTML = `<p style="text-align:center; color:var(--text-secondary); margin-top:30px;">No posts found.</p>`;
-            return;
-        }
-
-        const htmlPromises = posts.map(async p => {
-            const isAuthor = currentUser && p.authorId === currentUser.uid;
-            const isReportedByMe = p.reports && p.reports.includes(currentUser.uid);
-
-            // --- VISUAL VARIABLES ---
-            const isAnonPost = p.isAnonymous || p.authorName === "Anonymous" || p.authorRole === "Guest";
-
-            const displayPic = isAuthor && !window.currentUserData.isAnonymousSession ? (window.currentUserData.profilePic || "") : (p.authorPic || "");
-            const displayName = isAuthor && !window.currentUserData.isAnonymousSession ? window.currentUserData.name : p.authorName;
-            const displayRole = isAuthor && !window.currentUserData.isAnonymousSession ? (window.currentUserData.role || "Student") : (p.authorRole || "Student");
-            const displayYear = isAuthor && !window.currentUserData.isAnonymousSession ? (window.currentUserData.year || "") : (p.authorYear || "");
-
-            const yearBadge = getYearBadgeHtml(displayYear);
-            const timeString = timeAgo(p.createdAt);
-
-            const clickAction = isAnonPost
-                ? `onclick="showToast('This user is posting anonymously.')"`
-                : `onclick="openUserProfile('${p.authorId}')"`;
-
-            const cursorStyle = isAnonPost ? "cursor: default" : "cursor: pointer";
-
-            let tagsHtml = '';
-            if (p.tags) p.tags.forEach(tag => {
-                tagsHtml += `<span style="background:${tag.hex || '#555'}; color:white; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; margin-right:5px;">${tag.name}</span>`;
-            });
-
-            // --- SMART MEDIA HANDLING (FIXED DOWNLOAD) ---
-            let mediaHtml = '';
-            
-            if (p.imageUrl) {
-                let renderType = 'image';
-                
-                // 1. Check DB field first
-                if (p.mediaType === 'video') renderType = 'video';
-                else if (p.mediaType === 'document') renderType = 'document';
-                else {
-                    // 2. Fallback: Check URL extension (Allowing query params like ?alt=media)
-                    if (p.imageUrl.match(/\.(mp4|webm|mov|mkv)(\?.*)?$/i)) renderType = 'video';
-                    else if (p.imageUrl.match(/\.(pdf|doc|docx|ppt|pptx|txt|csv|xls|xlsx|zip|rar)(\?.*)?$/i)) renderType = 'document';
+                // --- FILTERS ---
+                if (window.activeFilters.years.length > 0) {
+                    posts = posts.filter(p => window.activeFilters.years.includes(p.authorYear));
+                }
+                if (window.activeFilters.tags.length > 0) {
+                    posts = posts.filter(p => {
+                        if (!p.tags) return false;
+                        return p.tags.some(t => window.activeFilters.tags.includes(t.name));
+                    });
+                }
+                if (window.activeFilters.sortBy === 'upvotes') {
+                    posts.sort((a, b) => (b.upvotes || 0) - (a.upvotes || 0));
+                } else {
+                    posts.sort((a, b) => b.createdAt - a.createdAt);
                 }
 
-                // 3. Extract Filename if missing
-                let displayFileName = p.fileName || "File";
-                if (!p.fileName && renderType === 'document') {
-                    try {
-                        const urlPath = decodeURIComponent(p.imageUrl.split('?')[0]); 
-                        displayFileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);
-                        if(displayFileName.match(/^\d+_/) && displayFileName.includes('_')) {
-                            displayFileName = displayFileName.split('_').slice(1).join('_'); 
+                if (posts.length === 0) {
+                    listEl.innerHTML = `<p style="text-align:center; color:var(--text-secondary); margin-top:30px;">No posts found.</p>`;
+                    return;
+                }
+
+                const htmlPromises = posts.map(async p => {
+                    const isAuthor = currentUser && p.authorId === currentUser.uid;
+                    const isReportedByMe = p.reports && p.reports.includes(currentUser.uid);
+
+                    // --- VISUAL VARIABLES ---
+                    const isAnonPost = p.isAnonymous || p.authorName === "Anonymous" || p.authorRole === "Guest";
+
+                    const displayPic = isAuthor && !window.currentUserData.isAnonymousSession ? (window.currentUserData.profilePic || "") : (p.authorPic || "");
+                    const displayName = isAuthor && !window.currentUserData.isAnonymousSession ? window.currentUserData.name : p.authorName;
+                    const displayRole = isAuthor && !window.currentUserData.isAnonymousSession ? (window.currentUserData.role || "Student") : (p.authorRole || "Student");
+                    const displayYear = isAuthor && !window.currentUserData.isAnonymousSession ? (window.currentUserData.year || "") : (p.authorYear || "");
+
+                    const yearBadge = getYearBadgeHtml(displayYear);
+                    const timeString = timeAgo(p.createdAt);
+
+                    const clickAction = isAnonPost
+                        ? `onclick="showToast('This user is posting anonymously.')"`
+                        : `onclick="openUserProfile('${p.authorId}')"`;
+
+                    const cursorStyle = isAnonPost ? "cursor: default" : "cursor: pointer";
+
+                    let tagsHtml = '';
+                    if (p.tags) p.tags.forEach(tag => {
+                        tagsHtml += `<span style="background:${tag.hex || '#555'}; color:white; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:700; margin-right:5px;">${tag.name}</span>`;
+                    });
+
+                    // --- SMART MEDIA HANDLING (FIXED DOWNLOAD) ---
+                    let mediaHtml = '';
+
+                    if (p.imageUrl) {
+                        let renderType = 'image';
+
+                        // 1. Check DB field first
+                        if (p.mediaType === 'video') renderType = 'video';
+                        else if (p.mediaType === 'document') renderType = 'document';
+                        else {
+                            // 2. Fallback: Check URL extension (Allowing query params like ?alt=media)
+                            if (p.imageUrl.match(/\.(mp4|webm|mov|mkv)(\?.*)?$/i)) renderType = 'video';
+                            else if (p.imageUrl.match(/\.(pdf|doc|docx|ppt|pptx|txt|csv|xls|xlsx|zip|rar)(\?.*)?$/i)) renderType = 'document';
                         }
-                    } catch(e){}
-                }
 
-                if (renderType === 'video') {
-                    mediaHtml = `<video src="${p.imageUrl}" controls class="post-image" onclick="event.stopPropagation()"></video>`;
-                } 
-                else if (renderType === 'document') {
-                    // RENDER FILE CARD (DIV instead of A tag)
-                    const sizeStr = typeof formatBytes === 'function' ? formatBytes(p.fileSize || 0) : '';
-                    const iconHtml = typeof getFileIcon === 'function' ? getFileIcon(displayFileName) : '📄';
-                    
-                    mediaHtml = `
+                        // 3. Extract Filename if missing
+                        let displayFileName = p.fileName || "File";
+                        if (!p.fileName && renderType === 'document') {
+                            try {
+                                const urlPath = decodeURIComponent(p.imageUrl.split('?')[0]);
+                                displayFileName = urlPath.substring(urlPath.lastIndexOf('/') + 1);
+                                if (displayFileName.match(/^\d+_/) && displayFileName.includes('_')) {
+                                    displayFileName = displayFileName.split('_').slice(1).join('_');
+                                }
+                            } catch (e) { }
+                        }
+
+                        if (renderType === 'video') {
+                            mediaHtml = `<video src="${p.imageUrl}" controls class="post-image" onclick="event.stopPropagation()"></video>`;
+                        }
+                        else if (renderType === 'document') {
+                            // RENDER FILE CARD (DIV instead of A tag)
+                            const sizeStr = typeof formatBytes === 'function' ? formatBytes(p.fileSize || 0) : '';
+                            const iconHtml = typeof getFileIcon === 'function' ? getFileIcon(displayFileName) : '📄';
+
+                            mediaHtml = `
                     <div class="file-attachment-card" onclick="forceDownload(event, '${p.imageUrl}', '${displayFileName}')" style="margin-top:10px; display:flex;">
                         ${iconHtml}
                         <div class="file-info">
@@ -8020,41 +8124,41 @@ function formatBytes(bytes, decimals = 1) {
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
                     </div>`;
-                } 
-                else {
-                    // Default to Image
-                    mediaHtml = `<img src="${p.imageUrl}" loading="lazy" class="post-image" onclick="event.stopPropagation(); openLightbox(this.src)">`;
-                }
-            }
+                        }
+                        else {
+                            // Default to Image
+                            mediaHtml = `<img src="${p.imageUrl}" loading="lazy" class="post-image" onclick="event.stopPropagation(); openLightbox(this.src)">`;
+                        }
+                    }
 
-            const processedBody = p.body.replace(/(https?:\/\/[^\s]+)/g, (url) => `<a href="${url}" target="_blank" style="color:var(--primary-color); text-decoration:underline;">${url}</a>`);
+                    const processedBody = p.body.replace(/(https?:\/\/[^\s]+)/g, (url) => `<a href="${url}" target="_blank" style="color:var(--primary-color); text-decoration:underline;">${url}</a>`);
 
-            let avatarHtml = displayPic && displayName !== "Anonymous"
-                ? `<img src="${displayPic}" loading="lazy" class="post-avatar-small">`
-                : `<div class="post-avatar-small" style="background:#333; display:flex; align-items:center; justify-content:center; color:#ccc; font-weight:bold;">${displayName.charAt(0)}</div>`;
+                    let avatarHtml = displayPic && displayName !== "Anonymous"
+                        ? `<img src="${displayPic}" loading="lazy" class="post-avatar-small">`
+                        : `<div class="post-avatar-small" style="background:#333; display:flex; align-items:center; justify-content:center; color:#ccc; font-weight:bold;">${displayName.charAt(0)}</div>`;
 
-            let topCommentHtml = '';
-            try {
-                const cSnap = await db.collection('posts').doc(p.id).collection('comments').orderBy('upvotes', 'desc').limit(1).get();
-                if (!cSnap.empty) {
-                    const c = cSnap.docs[0].data();
-                    topCommentHtml = `
+                    let topCommentHtml = '';
+                    try {
+                        const cSnap = await db.collection('posts').doc(p.id).collection('comments').orderBy('upvotes', 'desc').limit(1).get();
+                        if (!cSnap.empty) {
+                            const c = cSnap.docs[0].data();
+                            topCommentHtml = `
                     <div class="top-comment-preview" onclick="viewPost('${p.id}')">
                         <div style="font-weight:bold; color:var(--text-main); font-size:12px; margin-bottom:2px;">
                             ${c.authorName} <span style="font-weight:normal; color:var(--text-secondary);">commented:</span>
                         </div>
                         <div style="color:#ccc; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;">"${c.text}"</div>
                     </div>`;
-                }
-            } catch (e) { }
+                        }
+                    } catch (e) { }
 
-            const myBookmarks = window.currentUserData ? (window.currentUserData.bookmarks || []) : [];
-            const isBookmarked = myBookmarks.includes(p.id);
-            const bookmarkColor = isBookmarked ? '#FFD700' : 'currentColor';
-            const bookmarkFill = isBookmarked ? '#FFD700' : 'none';
-            const bookmarkClass = isBookmarked ? 'bookmarked' : '';
+                    const myBookmarks = window.currentUserData ? (window.currentUserData.bookmarks || []) : [];
+                    const isBookmarked = myBookmarks.includes(p.id);
+                    const bookmarkColor = isBookmarked ? '#FFD700' : 'currentColor';
+                    const bookmarkFill = isBookmarked ? '#FFD700' : 'none';
+                    const bookmarkClass = isBookmarked ? 'bookmarked' : '';
 
-            const wallHtml = `
+                    const wallHtml = `
                 <div id="wall-${p.id}" class="report-wall-container">
                     <div class="report-icon-large">⚠️</div>
                     <div class="report-text-large">You've reported this post</div>
@@ -8064,7 +8168,7 @@ function formatBytes(bytes, decimals = 1) {
                     </div>
                 </div>`;
 
-            const contentHtml = `
+                    const contentHtml = `
                 <div id="content-${p.id}" class="${isReportedByMe ? 'content-hidden' : ''}">
                     <div class="post-options-wrapper">
                         <div class="three-dots-btn" onclick="togglePostMenu(event, '${p.id}')">⋮</div>
@@ -8120,21 +8224,21 @@ function formatBytes(bytes, decimals = 1) {
                     </div>
                 </div>`;
 
-            return `
+                    return `
             <div id="post-card-${p.id}" class="card animate-item" style="position: relative;">
                 ${isReportedByMe ? wallHtml : ''} 
                 ${contentHtml}
             </div>`;
-        });
+                });
 
-        const finalHtml = await Promise.all(htmlPromises);
-        listEl.innerHTML = finalHtml.join('');
+                const finalHtml = await Promise.all(htmlPromises);
+                listEl.innerHTML = finalHtml.join('');
 
-    } catch (e) {
-        console.error(e);
-        listEl.innerHTML = '<p style="text-align:center; color:var(--danger-color);">Error loading posts.</p>';
-    }
-}
+            } catch (e) {
+                console.error(e);
+                listEl.innerHTML = '<p style="text-align:center; color:var(--danger-color);">Error loading posts.</p>';
+            }
+        }
 
         // --- 2. FILTER & SORT UI LOGIC ---
         // --- FIXED UPVOTE HANDLER ---
@@ -9266,11 +9370,11 @@ function formatBytes(bytes, decimals = 1) {
                 });
         }
         function triggerHaptic() {
- 
-    if (navigator.vibrate) {
-        navigator.vibrate(15); 
-    }
-}
+
+            if (navigator.vibrate) {
+                navigator.vibrate(15);
+            }
+        }
 
         function shareProfile() {
             const url = window.location.href;
@@ -9477,27 +9581,27 @@ function formatBytes(bytes, decimals = 1) {
             showToast("Removed from Saved");
         }
         function renderMessages(messages, container, chatId, otherPic) {
-    let html = '';
+            let html = '';
 
-    // Helper to generate avatar HTML
-    const getAvatar = (name) => {
-        if (otherPic) return `<img src="${otherPic}" class="chat-msg-avatar">`;
-        // Fallback placeholder
-        return `<div class="chat-msg-placeholder" style="width:28px; height:28px; font-size:10px;">${name ? name.charAt(0) : '?'}</div>`;
-    };
+            // Helper to generate avatar HTML
+            const getAvatar = (name) => {
+                if (otherPic) return `<img src="${otherPic}" class="chat-msg-avatar">`;
+                // Fallback placeholder
+                return `<div class="chat-msg-placeholder" style="width:28px; height:28px; font-size:10px;">${name ? name.charAt(0) : '?'}</div>`;
+            };
 
-    messages.forEach(m => {
-        const me = m.senderId === currentUser.uid;
+            messages.forEach(m => {
+                const me = m.senderId === currentUser.uid;
 
-        let content;
+                let content;
 
-        // --- 1. DOCUMENT / PDF ---
-        if (m.mediaType === 'document') {
-            const sizeStr = typeof formatBytes === 'function' ? formatBytes(m.fileSize || 0) : 'File';
-            // Use the file icon helper or fallback
-            const iconHtml = typeof getFileIcon === 'function' ? getFileIcon(m.fileName || 'file.pdf') : '📄';
-            
-            content = `
+                // --- 1. DOCUMENT / PDF ---
+                if (m.mediaType === 'document') {
+                    const sizeStr = typeof formatBytes === 'function' ? formatBytes(m.fileSize || 0) : 'File';
+                    // Use the file icon helper or fallback
+                    const iconHtml = typeof getFileIcon === 'function' ? getFileIcon(m.fileName || 'file.pdf') : '📄';
+
+                    content = `
 <div class="file-attachment-card" onclick="forceDownload(event, '${m.imageUrl}', '${m.fileName || 'file'}')" style="border:none; background:rgba(0,0,0,0.2);">
     ${iconHtml}
     <div class="file-info">
@@ -9505,25 +9609,25 @@ function formatBytes(bytes, decimals = 1) {
         <div class="file-meta">${sizeStr} • Tap to Download</div>
     </div>
 </div>`;
-        } 
-        // --- 2. IMAGE OR VIDEO ---
-        else if (m.imageUrl) {
-            content = (m.mediaType === 'video') 
-                ? `<video src="${m.imageUrl}" controls class="chat-image"></video>` 
-                : `<img src="${m.imageUrl}" class="chat-image" onclick="openLightbox(this.src)">`;
-        } 
-        // --- 3. TEXT ---
-        else {
-            content = `<span>${m.text}</span>`;
-        }
+                }
+                // --- 2. IMAGE OR VIDEO ---
+                else if (m.imageUrl) {
+                    content = (m.mediaType === 'video')
+                        ? `<video src="${m.imageUrl}" controls class="chat-image"></video>`
+                        : `<img src="${m.imageUrl}" class="chat-image" onclick="openLightbox(this.src)">`;
+                }
+                // --- 3. TEXT ---
+                else {
+                    content = `<span>${m.text}</span>`;
+                }
 
-        const msgIdAttr = `id="msg-${m.id}"`;
-        let events = me ? `oncontextmenu="showContextMenu(event, 'message', '${chatId}', '${m.id}')"` : '';
+                const msgIdAttr = `id="msg-${m.id}"`;
+                let events = me ? `oncontextmenu="showContextMenu(event, 'message', '${chatId}', '${m.id}')"` : '';
 
-        // Insert Avatar ONLY for 'them'
-        const avatarHtml = !me ? getAvatar("User") : '';
+                // Insert Avatar ONLY for 'them'
+                const avatarHtml = !me ? getAvatar("User") : '';
 
-        html += `
+                html += `
         <div class="chat-message-row ${me ? 'me' : 'them'}" ${msgIdAttr}>
             ${avatarHtml}
             <div class="msg-bubble ${me ? 'msg-me' : 'msg-them'}" ${events}>
@@ -9532,9 +9636,9 @@ function formatBytes(bytes, decimals = 1) {
         </div>
         <div id="seen-${m.id}" class="seen-placeholder" style="width:100%; display:none;"></div>
         `;
-    });
-    container.innerHTML = html;
-}
+            });
+            container.innerHTML = html;
+        }
 
         // --- HELPER: Update Seen Status Dynamically ---
         function updateSeenStatus(messages, otherUserReadTime, container) {
@@ -10008,44 +10112,44 @@ function formatBytes(bytes, decimals = 1) {
             list.innerHTML = html;
         };
         function forceDownload(e, url, fileName) {
-    if (e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
 
-    if (typeof showToast === 'function') showToast("Downloading...");
+            if (typeof showToast === 'function') showToast("Downloading...");
 
-    // Try fetching the blob (Works if CORS is fixed)
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'blob';
-    
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            const blob = xhr.response;
-            const blobUrl = window.URL.createObjectURL(blob);
-            
-            const a = document.createElement('a');
-            a.href = blobUrl;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(blobUrl);
-        } else {
-            // Fallback if CORS blocks it
-            window.open(url, '_blank');
+            // Try fetching the blob (Works if CORS is fixed)
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'blob';
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    const blob = xhr.response;
+                    const blobUrl = window.URL.createObjectURL(blob);
+
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(blobUrl);
+                } else {
+                    // Fallback if CORS blocks it
+                    window.open(url, '_blank');
+                }
+            };
+
+            xhr.onerror = function () {
+                // Network error / CORS blocked -> Fallback to opening tab
+                console.warn("CORS blocked internal download. Opening in new tab.");
+                window.open(url, '_blank');
+            };
+
+            xhr.send();
         }
-    };
-
-    xhr.onerror = function() {
-        // Network error / CORS blocked -> Fallback to opening tab
-        console.warn("CORS blocked internal download. Opening in new tab.");
-        window.open(url, '_blank');
-    };
-
-    xhr.send();
-}
 
         // 5. Toggle Logic (Global)
         window.toggleMainTag = function (name, className, hex, hasSub) {
@@ -10312,16 +10416,16 @@ function formatBytes(bytes, decimals = 1) {
             });
         }
     </script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      // Use "./sw.js" to look in the CURRENT folder
-      navigator.serviceWorker.register('./sw.js', { scope: './' })
-        .then(reg => console.log('✅ SW Registered in scope:', reg.scope))
-        .catch(err => console.error('❌ SW Failed:', err));
-    });
-  }
-</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Use "./sw.js" to look in the CURRENT folder
+                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                    .then(reg => console.log('✅ SW Registered in scope:', reg.scope))
+                    .catch(err => console.error('❌ SW Failed:', err));
+            });
+        }
+    </script>
 </body>
 
 </html>
