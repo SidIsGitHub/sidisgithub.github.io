@@ -13,46 +13,6 @@
     <title>V-SYNC</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        html, body {
-    /* Disables the pull-to-refresh gesture and browser bounce */
-    overscroll-behavior-y: none; 
-    
-    /* Ensure the body doesn't accidentally scroll past its limits */
-    overflow: hidden; 
-    height: 100%;
-    position: fixed;
-    width: 100%;
-}
-/* 1. Kill the browser-level pull-to-refresh icon */
-html, body {
-    overscroll-behavior-y: none !important; 
-    overflow: hidden;
-    height: 100%;
-    position: fixed;
-    width: 100%;
-}
-
-/* 2. Allow your app sections to scroll smoothly without triggering the browser */
-#communityScrollWrapper, 
-#messagesContainer, 
-#activeChatsList,
-.modal-content {
-    height: 100%;
-    overflow-y: auto;
-    /* This allows the area to 'bounce' slightly at the top without 
-       letting that pull reach the browser level */
-    overscroll-behavior-y: contain; 
-    -webkit-overflow-scrolling: touch; /* Ensures 'fluid' momentum scrolling on iOS/Android */
-}
-#communityScrollWrapper, 
-#messagesContainer, 
-#activeChatsList {
-    height: 100%;
-    overflow-y: auto;
-    /* Allows this specific area to bounce without triggering the browser refresh */
-    overscroll-behavior-y: contain; 
-    -webkit-overflow-scrolling: touch;
-}
         /* --- DYNAMIC POLL INPUTS --- */
         .poll-input-row {
             display: flex;
@@ -8667,6 +8627,7 @@ function formatBytes(bytes, decimals = 1) {
         }
 
         function loadComments(postId) {
+            triggerHaptic();
             const list = document.getElementById('commentsList');
             list.innerHTML = '<p style="color:var(--text-secondary);">Loading...</p>';
 
