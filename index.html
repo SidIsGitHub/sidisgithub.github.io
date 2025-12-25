@@ -1940,48 +1940,19 @@
             --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
             --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
-        /* 1. LOCK THE BROWSER VIEWPORT COMPLETELY */
-html {
-    height: 100%;
-    width: 100%;
-    overflow: hidden; /* Stops the browser window from scrolling */
-    overscroll-behavior: none; /* Kills the Chrome refresh icon */
-}
-
-body {
-    /* Keep your font settings */
-    font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "Segoe UI", sans-serif;
-    background-color: var(--bg-body);
-    color: var(--text-main);
-    line-height: 1.5;
+        body {
+            /* The "Apple Stack" - Prioritizes SF Pro, then falls back gracefully */
+            font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "Segoe UI", sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+            /* Subtle spacing adjustments typical of Apple's UI */
+            letter-spacing: -0.011em;
+            height: 100%;
     
-    /* THE APP SHELL FIX */
-    height: 100%; 
-    width: 100%;
-    position: fixed; /* Pin the body. It cannot move. */
-    overflow: hidden; /* No scrolling on the body allowed */
-    overscroll-behavior-y: none; /* Double kill for the icon */
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    -webkit-user-select: none;
 }
 
-/* 2. ENABLE SCROLLING ONLY INSIDE YOUR CONTAINERS */
-/* This specific list ensures your custom scroll logic works perfectly */
-#communityScrollWrapper, 
-#messagesContainer, 
-#activeChatsList, 
-#connectionsModalList,
-.modal-content,
-#savedPostsList,
-#tagListArea, 
-.auth-scroll-container,
-#adminReportsList {
-    height: 100%; /* Fill the fixed body */
-    overflow-y: auto !important; /* Force scrolling here */
-    overscroll-behavior-y: contain; /* TRAP the bounce here. Don't let it bubble to body. */
-    -webkit-overflow-scrolling: touch; /* Keep the smooth momentum */
-}
         /* --- FILE ATTACHMENT CARD --- */
 .file-attachment-card {
     display: flex;
@@ -2274,6 +2245,12 @@ body {
             --bg-body: #000000;
             /* Ensure this stays black */
         }
+        html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Stops the browser window from scrolling */
+    overscroll-behavior: none; /* Kills the Chrome refresh icon */
+}
 
         * {
             margin: 0;
